@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "current_feature": "core-compression-engine",
+  "features": [
+    {
+      "id": "core-compression-engine",
+      "title": "Core Compression Engine",
+      "status": "done",
+      "acceptance": [
+        "Compress JSON input by 60-95% with token-count preservation",
+        "Compress plain text/code by 20% with semantic preservation",
+        "Deterministic offline algorithm, no LLM required",
+        "Exported as Python library with CLI entrypoint"
+      ],
+      "implementation": [
+        "backend/app/core/compression.py",
+        "backend/app/cli.py",
+        "backend/app/models/schemas.py",
+        "backend/app/services/compression.py"
+      ],
+      "tests": [
+        "backend/tests/test_compression.py",
+        "backend/tests/test_cli.py"
+      ]
+    },
+    {
+      "id": "fastapi-proxy",
+      "title": "FastAPI Proxy Server",
+      "status": "done",
+      "acceptance": [
+        "Accept POST /compress with JSON/text payload",
+        "Return compressed output with metadata (ratio, tokens saved)",
+        "Health check endpoint"
+      ],
+      "implementation": [
+        "backend/app/main.py",
+        "backend/app/api/compress.py",
+        "backend/app/api/health.py",
+        "backend/app/core/config.py"
+      ],
+      "tests": [
+        "backend/tests/test_api.py"
+      ]
+    },
+    {
+      "id": "react-dashboard",
+      "title": "React Compression Dashboard",
+      "status": "done",
+      "acceptance": [
+        "Paste/code upload input, see compressed output side-by-side",
+        "Show compression ratio, token savings, before/after preview",
+        "Copy/download compressed result"
+      ],
+      "implementation": [
+        "frontend/src/components/CompressionPanel.tsx",
+        "frontend/src/components/CompressionResult.tsx",
+        "frontend/src/components/CompressionPanel.css",
+        "frontend/src/api/client.ts",
+        "frontend/src/types/api.ts",
+        "frontend/src/main.tsx"
+      ],
+      "tests": [
+        "frontend/src/components/CompressionPanel.test.tsx"
+      ]
+    },
+    {
+      "id": "mcp-server",
+      "title": "MCP Server Integration",
+      "status": "planned",
+      "acceptance": [
+        "Expose compress tool via MCP protocol",
+        "Works with Claude Desktop / MCP clients"
+      ],
+      "implementation": [],
+      "tests": []
+    },
+    {
+      "id": "auth-oidc",
+      "title": "OIDC/Keycloak Authentication",
+      "status": "planned",
+      "acceptance": [
+        "Authorization code flow with PKCE",
+        "Role-based access (viewer/operator/admin)",
+        "Session management with HttpOnly cookies"
+      ],
+      "implementation": [],
+      "tests": []
+    },
+    {
+      "id": "docker-compose",
+      "title": "Docker Compose with Keycloak",
+      "status": "done",
+      "acceptance": [
+        "Backend, frontend, Keycloak services",
+        "Persistent volumes for DB and Keycloak",
+        "Healthchecks on all services"
+      ],
+      "implementation": [
+        "docker-compose.yaml",
+        "backend/Dockerfile",
+        "frontend/Dockerfile",
+        "frontend/nginx.conf",
+        "keycloak/realm-export.json"
+      ],
+      "tests": []
+    }
+  ]
+}
