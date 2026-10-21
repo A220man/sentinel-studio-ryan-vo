@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "name": "sentinel-studio-ryan-vo",
+  "owner": "A220man",
+  "email": "ryandtvo@gmail.com",
+  "domain": "AI/ML developer tools",
+  "summary": "Work in progress: sentinel-studio-ryan-vo",
+  "workflows": [
+    "Compress repetitive JSON API responses via dictionary deduplication before sending to LLM",
+    "Minify source code and logs by removing redundant whitespace and comments",
+    "Auto-detect content type and apply optimal compression strategy via CLI, API, or dashboard"
+  ],
+  "auth": "oidc-keycloak-saml-broker",
+  "llm_providers": [
+    "openai-compatible",
+    "anthropic",
+    "gemini",
+    "ollama"
+  ],
+  "status": "work-in-progress"
+}
