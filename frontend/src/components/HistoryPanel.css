@@ -1,0 +1,179 @@
+.history-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background: var(--surface-color, #fff);
+  border-radius: 8px;
+  border: 1px solid var(--border-color, #e0e0e0);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 4px;
+  background: var(--surface-color, #fff);
+  color: var(--text-primary, #1a1a1a);
+  font-size: 0.875rem;
+}
+
+.analytics-summary {
+  display: flex;
+  gap: 24px;
+  padding: 12px 16px;
+  background: var(--background-color, #f5f5f5);
+  border-radius: 6px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary, #666);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.panel-content {
+  overflow-x: auto;
+}
+
+.loading {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-secondary, #666);
+}
+
+.error {
+  padding: 12px 16px;
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 4px;
+  color: #c00;
+}
+
+.empty {
+  padding: 32px;
+  text-align: center;
+  color: var(--text-secondary, #666);
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.history-table th,
+.history-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color, #eee);
+}
+
+.history-table th {
+  background: var(--background-color, #f5f5f5);
+  font-weight: 600;
+  color: var(--text-primary, #1a1a1a);
+  white-space: nowrap;
+}
+
+.history-table tbody tr:hover {
+  background: var(--hover-color, #fafafa);
+}
+
+.time-col {
+  white-space: nowrap;
+  color: var(--text-secondary, #666);
+  font-size: 0.8125rem;
+}
+
+.tokens-col {
+  font-family: monospace;
+  font-size: 0.8125rem;
+}
+
+.ratio-col.positive {
+  color: #0a7;
+  font-weight: 500;
+}
+
+.preview-col {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-secondary, #666);
+  font-size: 0.8125rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.badge-json {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.badge-text {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.badge-auto {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.pagination {
+  padding: 12px 16px;
+  text-align: right;
+  color: var(--text-secondary, #666);
+  font-size: 0.8125rem;
+}
+
+@media (max-width: 768px) {
+  .history-table th:nth-child(7),
+  .history-table td:nth-child(7) {
+    display: none;
+  }
+}
+
