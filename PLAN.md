@@ -4,7 +4,7 @@ Each round completes one feature or repair. Future items are planned, not implem
 
 ## Current round
 
-core-compression-engine
+compression-history
 
 ## Roadmap
 
@@ -50,11 +50,30 @@ Tests: `frontend/src/components/CompressionPanel.test.tsx`
 
 ### mcp-server — MCP Server Integration
 
-Status: planned
+Status: done
 
 Acceptance:
 - Expose compress tool via MCP protocol
 - Works with Claude Desktop / MCP clients
+
+Implementation: `backend/app/mcp/server.py`, `backend/app/mcp/__init__.py`
+
+Tests: `backend/tests/test_mcp.py`
+
+### compression-history — Compression History & Analytics
+
+Status: done
+
+Acceptance:
+- Persist compression operations to SQLite with metadata
+- API endpoints for history listing with filtering and pagination
+- Analytics summary endpoint (totals, by type, by algorithm)
+- Frontend History panel with table view and analytics summary
+- Clear history functionality
+
+Implementation: `backend/app/models/schemas.py (updated)`, `backend/app/services/history.py`, `backend/app/services/compression.py (updated)`, `backend/app/api/history.py`, `backend/app/main.py (updated)`, `frontend/src/components/HistoryPanel.tsx`, `frontend/src/components/HistoryPanel.css`, `frontend/src/api/client.ts (updated)`, `frontend/src/types/api.ts (updated)`, `frontend/src/App.tsx`, `frontend/src/main.tsx (updated)`, `frontend/src/styles/main.css (updated)`
+
+Tests: `backend/tests/test_history.py`, `frontend/src/components/HistoryPanel.test.tsx`
 
 ### auth-oidc — OIDC/Keycloak Authentication
 

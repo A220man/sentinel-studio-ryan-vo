@@ -1,6 +1,13 @@
 // Typed API client for Sentinel Studio backend
 
-import type { CompressRequest, CompressResponse, HealthResponse } from "../types/api";
+import type {
+  CompressRequest,
+  CompressResponse,
+  HealthResponse,
+  HistoryResponse,
+  AnalyticsSummary,
+  HistoryQueryParams,
+} from "../types/api";
 
 const API_BASE = "/api/v1";
 
@@ -19,6 +26,17 @@ async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
   }
 
   return response.json();
+}
+
+function buildQuery(params: HistoryQueryParams): string {
+  const searchParams = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      searchParams.append(key, String(value));
+    }
+  });
+  const query = searchParams.toString();
+  return query ? `?${query}` : "";
 }
 
 export const api = {
@@ -40,4 +58,18 @@ export const api = {
         body: JSON.stringify(requests),
       }),
   },
+
+  history: {
+    list: (params: HistoryQueryParams = {}) =>
+      fetchJson<HistoryResponse>(`${API_BASE}/history${buildQuery(params)}`),
+
+    analytics: () =>
+      fetchJson<AnalyticsSummary>(`${API_BASE}/history/analytics`),
+
+    clear: () =>
+      fetchJson<{ deleted: number }>(`${API_BASE}/history`, {
+        method: "DELETE",
+      }),
+  },
 };
+

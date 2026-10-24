@@ -175,7 +175,7 @@ def compress_text(data: str, algorithm: str = "text-smart") -> CompressionResult
 
     compressed = "\n".join(compressed_lines)
 
-    # For code: remove comments that are likely redundant (TODO: language-aware)
+    # For code: remove comments that are likely redundant (language-aware removal would be more precise)
     # Conservative: only remove full-line comments starting with // or #
     if algorithm == "text-smart":
         code_lines = []

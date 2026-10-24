@@ -9,6 +9,7 @@ from app.core.compression import (
     decompress_json,
     CompressionResult,
 )
+from app.services.history import history_service
 
 
 class CompressionService:
@@ -18,11 +19,24 @@ class CompressionService:
         """Compress content with automatic type detection."""
         ctype = (content_type or "auto").lower()
         if ctype == "json":
-            return compress_json(content, aggressive=aggressive)
+            result = compress_json(content, aggressive=aggressive)
         elif ctype == "text":
-            return compress_text(content)
+            result = compress_text(content)
         else:
-            return compress_auto(content, aggressive=aggressive)
+            result = compress_auto(content, aggressive=aggressive)
+
+        # Record in history
+        history_service.record_compression(
+            content_type=result.algorithm.replace("-", "_").split("_")[0],
+            algorithm=result.algorithm,
+            original_tokens=result.original_tokens,
+            compressed_tokens=result.compressed_tokens,
+            reduction_ratio=result.ratio,
+            aggressive=aggressive,
+            content_preview=content[:200],
+        )
+
+        return result
 
     def compress_batch(self, items: list[tuple[str, str | None, bool]]) -> list[CompressionResult]:
         """Compress multiple items."""
@@ -38,3 +52,4 @@ class CompressionService:
 
 # Singleton instance
 compression_service = CompressionService()
+

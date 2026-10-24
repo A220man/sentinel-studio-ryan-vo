@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import compress, health
+from app.api import compress, health, history
 from app.core.config import settings
 
 
@@ -40,6 +40,7 @@ def create_app() -> FastAPI:
     # Routers
     app.include_router(health.router, tags=["health"])
     app.include_router(compress.router, prefix="/api/v1", tags=["compression"])
+    app.include_router(history.router, prefix="/api/v1", tags=["history"])
 
     return app
 
