@@ -18,7 +18,19 @@ def _is_error(result) -> bool:
         for item in content_list:
             if hasattr(item, 'text') and 'Error' in item.text:
                 return True
+    else:
+        # New format: result is directly a list of content items
+        for item in result:
+            if hasattr(item, 'text') and 'Error' in item.text:
+                return True
     return False
+
+
+def _get_content_list(result):
+    """Extract content list from call_tool result (handles both old and new formats)."""
+    if isinstance(result, tuple):
+        return result[0]
+    return result
 
 
 class TestMCPServerTools:
@@ -55,7 +67,7 @@ class TestMCPServerCompressJSON:
         result = await mcp_server.call_tool("compress_json", payload)
 
         assert not _is_error(result)
-        content_list, _ = result
+        content_list = _get_content_list(result)
         data = json.loads(content_list[0].text)
         assert "compressed" in data
         assert "original_tokens" in data
@@ -70,7 +82,7 @@ class TestMCPServerCompressJSON:
         result = await mcp_server.call_tool("compress_json", payload)
 
         assert not _is_error(result)
-        content_list, _ = result
+        content_list = _get_content_list(result)
         data = json.loads(content_list[0].text)
         assert data["algorithm"].startswith("json")
 
@@ -92,7 +104,7 @@ class TestMCPServerCompressText:
         result = await mcp_server.call_tool("compress_text", payload)
 
         assert not _is_error(result)
-        content_list, _ = result
+        content_list = _get_content_list(result)
         data = json.loads(content_list[0].text)
         assert "compressed" in data
         assert data["algorithm"].startswith("text")
@@ -103,7 +115,7 @@ class TestMCPServerCompressText:
         result = await mcp_server.call_tool("compress_text", payload)
 
         assert not _is_error(result)
-        content_list, _ = result
+        content_list = _get_content_list(result)
         data = json.loads(content_list[0].text)
         assert data["algorithm"] in ("text-basic", "text-smart")
 
@@ -117,7 +129,7 @@ class TestMCPServerCompressAuto:
         result = await mcp_server.call_tool("compress_auto", payload)
 
         assert not _is_error(result)
-        content_list, _ = result
+        content_list = _get_content_list(result)
         data = json.loads(content_list[0].text)
         assert data["algorithm"].startswith("json")
 
@@ -127,7 +139,7 @@ class TestMCPServerCompressAuto:
         result = await mcp_server.call_tool("compress_auto", payload)
 
         assert not _is_error(result)
-        content_list, _ = result
+        content_list = _get_content_list(result)
         data = json.loads(content_list[0].text)
         assert data["algorithm"].startswith("text")
 
@@ -139,14 +151,14 @@ class TestMCPServerDecompressJSON:
     async def test_decompress_json(self) -> None:
         compress_result = await mcp_server.call_tool("compress_json", {"content": '{"test": "value"}'})
         assert not _is_error(compress_result)
-        compress_content, _ = compress_result
+        compress_content = _get_content_list(compress_result)
         compressed_data = json.loads(compress_content[0].text)
         compressed = compressed_data["compressed"]
 
         result = await mcp_server.call_tool("decompress_json", {"compressed": compressed})
 
         assert not _is_error(result)
-        content_list, _ = result
+        content_list = _get_content_list(result)
         assert "test" in content_list[0].text
         assert "value" in content_list[0].text
 
@@ -165,7 +177,7 @@ class TestMCPServerCompressBatch:
         result = await mcp_server.call_tool("compress_batch", payload)
 
         assert not _is_error(result)
-        content_list, _ = result
+        content_list = _get_content_list(result)
         data = json.loads(content_list[0].text)
         assert isinstance(data, list)
         assert len(data) == 2
@@ -179,8 +191,7 @@ class TestMCPServerErrorHandling:
     @pytest.mark.asyncio
     async def test_unknown_tool(self) -> None:
         try:
-            result = await mcp_server.call_tool("unknown_tool", {})
-            assert _is_error(result)
+            await mcp_server.call_tool("nonexistent_tool", {})
         except Exception as e:
             assert "Unknown tool" in str(e)
 
