@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.3.0 — work-in-progress checkpoint
+
+Partial code published for continued development. Known issues: STATUS.md.
+
+## 1.2.1 — 2026-11-05
+
+### Fixed
+- MCP server compatibility with mcp 1.30.0 / pydantic 2.8
+- Removed `-> str` return type annotations from all `@mcp_server.tool()` decorated functions in `backend/app/mcp/server.py`
+- Updated test helpers in `backend/tests/test_mcp.py` to handle new `call_tool` return format (direct list vs tuple)
+
 ## 1.2.0 — work-in-progress checkpoint
 
 Partial code published for continued development. Known issues: STATUS.md.
@@ -74,4 +85,3 @@ All notable changes to Sentinel Studio are documented here.
 - No rate limiting
 - Dictionary-based JSON decompression only works when dictionary was emitted
 - Demo mode not implemented
-

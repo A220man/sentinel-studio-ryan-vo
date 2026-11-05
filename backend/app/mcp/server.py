@@ -40,7 +40,7 @@ def _format_result(result: CompressionResult) -> str:
 
 
 @mcp_server.tool()
-def compress_json(content: str, aggressive: bool = True) -> str:
+def compress_json(content: str, aggressive: bool = True):
     """Compress JSON content using dictionary deduplication and minification.
     
     Achieves 60-95% token reduction for repetitive JSON.
@@ -57,7 +57,7 @@ def compress_json(content: str, aggressive: bool = True) -> str:
 
 
 @mcp_server.tool()
-def compress_text(content: str, algorithm: str = "text-smart") -> str:
+def compress_text(content: str, algorithm: str = "text-smart"):
     """Compress plain text or code by removing redundant whitespace, trailing spaces, and full-line comments.
     
     Achieves ~20% token reduction.
@@ -74,7 +74,7 @@ def compress_text(content: str, algorithm: str = "text-smart") -> str:
 
 
 @mcp_server.tool()
-def compress_auto(content: str, aggressive: bool = True) -> str:
+def compress_auto(content: str, aggressive: bool = True):
     """Automatically detect content type (JSON vs text) and apply optimal compression strategy.
     
     Args:
@@ -89,7 +89,7 @@ def compress_auto(content: str, aggressive: bool = True) -> str:
 
 
 @mcp_server.tool()
-def decompress_json(compressed: str) -> str:
+def decompress_json(compressed: str):
     """Decompress JSON that was compressed with compress_json.
     
     Restores dictionary references.
@@ -104,7 +104,7 @@ def decompress_json(compressed: str) -> str:
 
 
 @mcp_server.tool()
-def compress_batch(items: list[dict[str, Any]]) -> str:
+def compress_batch(items: list[dict[str, Any]]):
     """Compress multiple items in one request.
     
     Useful for compressing multiple log entries or API responses.
