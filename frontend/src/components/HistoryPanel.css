@@ -38,6 +38,16 @@
   font-size: 0.875rem;
 }
 
+.filter-input {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 4px;
+  background: var(--surface-color, #fff);
+  color: var(--text-primary, #1a1a1a);
+  font-size: 0.875rem;
+  min-width: 160px;
+}
+
 .analytics-summary {
   display: flex;
   gap: 24px;
@@ -168,6 +178,16 @@
   text-align: right;
   color: var(--text-secondary, #666);
   font-size: 0.8125rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.pagination-controls {
+  display: inline-flex;
+  gap: 8px;
+  margin-left: 16px;
 }
 
 @media (max-width: 768px) {
