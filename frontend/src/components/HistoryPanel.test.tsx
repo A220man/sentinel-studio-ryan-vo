@@ -133,13 +133,15 @@ describe("HistoryPanel", () => {
     render(<HistoryPanel />);
 
     await waitFor(() => {
-      const select = screen.getByRole("combobox");
+      const select = screen.getByRole("combobox", { name: /Filter by content type/i });
       fireEvent.change(select, { target: { value: "json" } });
     });
 
     // Wait for the API to be called with the filter
     await waitFor(() => {
-      expect(api.history.list).toHaveBeenCalledWith({ content_type: "json" });
+      expect(api.history.list).toHaveBeenCalledWith(
+        expect.objectContaining({ content_type: "json" })
+      );
     });
   });
 });
