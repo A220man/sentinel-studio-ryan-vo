@@ -1,6 +1,18 @@
 # Changelog
 
+## 1.5.0 — work-in-progress checkpoint
+
+Partial code published for continued development. Known issues: STATUS.md.
+
 ## 1.4.0 — work-in-progress checkpoint
+
+### Fixed
+- Deprecated `datetime.utcnow()` in `backend/app/models/schemas.py` — now uses timezone-aware `datetime.now(timezone.utc)` for `CompressionRecord.timestamp` default factory
+- React `act()` warnings in `frontend/src/components/HistoryPanel.test.tsx` — wrapped all `render()` calls in `act()` for async state updates
+
+### Test Results
+- Backend: 57/57 tests pass, no deprecation warnings
+- Frontend: 14/14 tests pass, no act() warnings
 
 Partial code published for continued development. Known issues: STATUS.md.
 
