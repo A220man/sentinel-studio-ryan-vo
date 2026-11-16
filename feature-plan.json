@@ -112,7 +112,7 @@
     {
       "id": "auth-oidc",
       "title": "OIDC/Keycloak Authentication",
-      "status": "planned",
+      "status": "in_progress",
       "acceptance": [
         "Authorization code flow with PKCE",
         "Role-based access (viewer/operator/admin)",

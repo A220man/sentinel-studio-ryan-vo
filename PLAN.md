@@ -77,7 +77,7 @@ Tests: `backend/tests/test_history.py`, `frontend/src/components/HistoryPanel.te
 
 ### auth-oidc — OIDC/Keycloak Authentication
 
-Status: planned
+Status: in_progress
 
 Acceptance:
 - Authorization code flow with PKCE
