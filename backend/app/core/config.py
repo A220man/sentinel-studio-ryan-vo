@@ -37,6 +37,12 @@ class Settings(BaseSettings):
     LLM_BASE_URL: str | None = None
     LLM_API_KEY: str | None = None
 
+    # Keycloak (OIDC authentication)
+    KEYCLOAK_SERVER_URL: str | None = None
+    KEYCLOAK_REALM: str | None = None
+    KEYCLOAK_CLIENT_ID: str | None = None
+    KEYCLOAK_CLIENT_SECRET: str | None = None
+
 
 @lru_cache
 def get_settings() -> Settings:
