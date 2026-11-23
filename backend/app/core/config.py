@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     # Server
     HOST: str = "127.0.0.1"
     PORT: int = 8000
+    server_url: str = "http://127.0.0.1:8000"
 
     # CORS
     CORS_ORIGINS: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
@@ -42,6 +43,7 @@ class Settings(BaseSettings):
     KEYCLOAK_REALM: str | None = None
     KEYCLOAK_CLIENT_ID: str | None = None
     KEYCLOAK_CLIENT_SECRET: str | None = None
+    KEYCLOAK_REDIRECT_URI: str = "http://localhost:8000"
 
 
 @lru_cache
