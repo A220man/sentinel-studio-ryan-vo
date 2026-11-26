@@ -1,6 +1,6 @@
 [project]
 name = "sentinel-studio"
-version = "1.7.0"
+version = "1.8.0"
 description = "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM"
 readme = "README.md"
 license = {file = "LICENSE"}
