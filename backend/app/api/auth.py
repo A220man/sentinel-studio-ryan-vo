@@ -306,15 +306,35 @@ async def logout(
 
 
 @router.get("/me")
-async def me() -> dict:
-    """Get current user info from ID token claims (stub)."""
-    # In production, decode and validate the id_token
+async def me(request: Request) -> dict:
+    """Get current user info from ID token claims."""
+    from jose import jwt as jose_jwt
+    from app.core.config import get_settings
+
+    settings: Settings = get_settings()
+    userinfo = {
+        "sub": "unknown",
+        "email": "unknown",
+        "name": "Unknown User",
+        "roles": ["viewer"],
+    }
+    id_token_cookie = request.cookies.get("id_token")
+    if id_token_cookie:
+        try:
+            decoded = jose_jwt.decode(
+                id_token_cookie,
+                settings.keycloak_client_secret or "secret",
+                algorithms=["HS256", "RS256"],
+            )
+            userinfo = {
+                "sub": decoded.get("sub", "unknown"),
+                "email": decoded.get("email", "unknown"),
+                "name": decoded.get("name", "Unknown User"),
+                "roles": decoded.get("realm_access", {}).get("roles", ["viewer"]),
+            }
+        except Exception:
+            pass  # Keep defaults on decode failure
     return {
         "authenticated": True,
-        "userinfo": {
-            "sub": "unknown",
-            "email": "unknown",
-            "name": "Unknown User",
-            "roles": ["viewer"],
-        },
+        "userinfo": userinfo,
     }

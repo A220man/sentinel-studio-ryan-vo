@@ -84,3 +84,12 @@ class TestAuthMe:
         assert response.status_code == 200
         data = response.json()
         assert "authenticated" in data
+        assert "userinfo" in data
+        assert "roles" in data["userinfo"]
+
+    async def test_me_roles_include_viewer(self, client: AsyncClient) -> None:
+        """/me endpoint should include viewer role by default."""
+        response = await client.get("/api/v1/auth/me")
+        assert response.status_code == 200
+        data = response.json()
+        assert "viewer" in data["userinfo"]["roles"]
